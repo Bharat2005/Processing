@@ -1,0 +1,112 @@
+https://photos.app.goo.gl/unyrLSeN1Gcr6Jah8 (LINK TO VIDEO) if you don't want to download the file
+
+float x;
+float y;
+float w;
+
+Enemy[] enemies;
+
+void setup(){
+  size(500,500);
+  
+  x = width/2;
+  y = height/2;
+  w = 25;
+  enemies = new Enemy[20];
+  
+  for(int i = 0; i < enemies.length; i++){
+   enemies[i] = new Enemy(random(0,width), 
+                           random(0,height),
+                            40);
+ }
+ 
+}
+
+ void draw(){
+   background(0);
+   
+     
+   fill(255);
+   
+   for (int i = 0; i < enemies.length; i++){
+     
+   float d = dist(x,y, enemies[i].x, enemies[i].y);
+   
+   if(d < w/2 + enemies[i].w/2){
+    background(random(100,255),random(100,255), random(100,255));
+    //setup();
+   }
+   enemies[i].move();
+   enemies[i].bounce();
+   enemies[i].display();
+   
+   }
+   
+  movePlayer();
+  displayPlayer();
+}
+
+
+
+
+
+void movePlayer(){
+  
+  if( dist(mouseX, mouseY, x, y) > 10){
+    float a = atan2(x - mouseX, y - mouseY);
+    x -= sin(a) * 5;
+    y -= cos(a) * 5;
+  }
+  
+}
+
+  void displayPlayer(){
+    fill(255);
+    ellipse(x,y,w,w);
+}
+
+
+
+
+------------------- enemies tab
+
+class Enemy{
+  float x;
+  float y;
+  float w;
+  float mx;
+  float my;
+  
+  Enemy(float tx, float ty, float tw){
+    x = tx;
+    y = ty;
+    w = tw;
+    mx = random(-1,1);
+    my = random(-1,1);
+  }
+  
+  void move(){
+    x += mx;
+    y += my;
+    
+    }
+    
+    void display(){
+      
+      fill(255,0,0);
+      ellipse(x,y,w,w);
+    }
+
+void bounce(){ 
+  if(x < 0 || x > width){
+    mx *= -1;
+  }
+  if(y < 0 || y > height){
+    my *= -1;
+  }
+
+}
+
+}
+
+ 
