@@ -1,0 +1,35 @@
+video link: https://photos.app.goo.gl/SD5qPB8fd6xMAYyCA 
+
+
+
+
+import processing.sound.*;
+Amplitude amp;
+
+SoundFile sample;
+
+void setup() {
+  size (640, 360);
+  background(255);
+
+  sample = new SoundFile(this, "Kalimba.aiff");
+  sample.loop();
+
+  amp = new Amplitude(this);
+  amp.input(sample); //sets amplitude to look at our sond file
+}
+
+void draw() {
+  println(amp.analyze()); // this reutrns a number between 0 and 1
+  
+  float w = amp.analyze() * 100;
+  
+  if (w > 75){
+    fill(255, 0, 0);
+  }
+  else
+  {
+    fill(255);
+  }
+  ellipse (width/2, height/2, w, w);
+}
